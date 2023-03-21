@@ -2,7 +2,10 @@ import React from 'react';
 
 import './Form.scss';
 
-class Form extends React.Component {
+const Form = (props) => {
+   const { handleApiCall } = props;
+
+   
 
   handleSubmit = e => {
     e.preventDefault();
