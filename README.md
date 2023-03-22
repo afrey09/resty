@@ -1,7 +1,7 @@
-## Lab Technical Requirements
+# Lab Technical Requirements
 
 
-# Lab 27
+## Lab 27
 
 Refactor any components using this.setState() to implement the useState() react API hook.
 Refactor the Form Component to implement user input from form elements, instead of hard coded string values.
@@ -29,7 +29,7 @@ Renders the count.
 Renders the Result Headers as “pretty” JSON.
 Renders the Result Body as “pretty” JSON.
 
-# Lab 28
+## Lab 28
 
 Refactor application methods to allow for browser side HTTP requests to be sent.
 Your implementation should allow the user to set a url, method, and request body.
@@ -94,6 +94,10 @@ Brandon Perard
 Jonathan Staib
 Jordan Covington
 Joe Davitt
+
+## UML
+
+![UML](./public/UML.png)
 
 ## CodeSandbox Link
 
