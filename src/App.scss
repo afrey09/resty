@@ -9,6 +9,7 @@ html, body {
 body {
   background: $backgroundColor;
   height: 100%;
+  font-size:35px;
 
   #root {
     display: flex;
@@ -17,14 +18,14 @@ body {
   }
 
   footer {
-    background: darken($backgroundColor, 50);
+    background: lighten($backgroundColor, 25);
     border-top: 10px dotted #eee;
-    padding: 8em 4em;
+    padding: 1em 10em;
     margin: 0;
   }
 
   header {
-    background: darken($backgroundColor, 75);
+    background: lighten($backgroundColor, 15);
     border-bottom: 10px dotted #eee;
     color: #eee;
     padding: 5em;
