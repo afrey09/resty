@@ -40,7 +40,7 @@ const App = () => {
       <div>Request Method: {requestParams.method}</div>
       <div>URL: {requestParams.url}</div>
       <Form handleApiCall={callApi} />
-      <Results data={data} />
+      <Results data={data} loading={loading} />
       <Footer />
     </>
   )

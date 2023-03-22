@@ -10,9 +10,9 @@ const Form = (props) => {
     const handleSubmit = e => {
     e.preventDefault();
     const formData = {
-      method: e.target.method.value || 'GET',
-      url: e.target.url.value,
-      data: e.target.data.value,
+      method,
+      url,
+      data,
     };
     props.handleApiCall(formData);
   }
