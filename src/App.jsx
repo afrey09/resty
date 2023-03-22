@@ -1,5 +1,5 @@
-import { useState } from 'react';
-//import axios from 'axios';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import './App.scss';
 
@@ -19,20 +19,27 @@ const App = () => {
   const [loading, setLoading] = useState(false);
 
   const callApi = (requestParams) => {
-    // mock output
+    setLoading(true);
+
     setTimeout(() => {
-      const data = {
-        count: 2,
-        results: [
-          { name: 'fake thing 1', url: 'http://fakethings.com/1' },
-          { name: 'fake thing 2', url: 'http://fakethings.com/2' },
-        ],
-      }
-      setData(data);
       setRequestParams(requestParams);
       setLoading(false);
     }, 1000);
   }
+
+  useEffect(() => {
+    console.log('An event occurred');
+  });
+
+  useEffect(() => {
+
+    const getData = async () => {
+
+      let response = await axios(requestParams);
+      setData(response.data.results);
+    }
+    getData();
+  }, [requestParams]);
 
   return (
     <>
