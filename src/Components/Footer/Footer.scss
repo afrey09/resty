@@ -1,4 +1,4 @@
-$backgroundColor: #000000;
+$backgroundColor: white;
 $radius: 40%;
 
 
@@ -22,7 +22,7 @@ form {
         background-color: $backgroundColor;
 
         &:hover, &.active {
-          background: #fff;
+          background: blue($color: #000000);
         }
       }
     }
