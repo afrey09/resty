@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 //import axios from 'axios';
 
 import './App.scss';
@@ -16,30 +16,35 @@ const App = () => {
 
   const [data, setData] = useState(null);
   const [requestParams, setRequestParams] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const callApi = (requestParams) => {
-  // mock output
-  const data = {
-    count: 2,
-    results: [
-      {name: 'fake thing 1', url: 'http://fakethings.com/1'},
-      {name: 'fake thing 2', url: 'http://fakethings.com/2'},
-    ],
-  };
-  setData(data);
-  setRequestParams(requestParams);
-}
+    // mock output
+    setTimeout(() => {
+      const data = {
+        count: 2,
+        results: [
+          { name: 'fake thing 1', url: 'http://fakethings.com/1' },
+          { name: 'fake thing 2', url: 'http://fakethings.com/2' },
+        ],
+      }
+      setData(data);
+      setRequestParams(requestParams);
+      setLoading(false);
+    }, 1000);
+  }
 
-return (
-  <React.Fragment>
-    <Header />
-    <div>Request Method: {requestParams.method}</div>
-    <div>URL: {requestParams.url}</div>
-    <Form handleApiCall={callApi} />
-    <Results data={data} />
-    <Footer />
-  </React.Fragment>
-)};
+  return (
+    <>
+      <Header />
+      <div>Request Method: {requestParams.method}</div>
+      <div>URL: {requestParams.url}</div>
+      <Form handleApiCall={callApi} />
+      <Results data={data} />
+      <Footer />
+    </>
+  )
+};
 
 
 export default App;
