@@ -10,9 +10,9 @@ const Form = (props) => {
     const handleSubmit = e => {
     e.preventDefault();
     const formData = {
-      method,
-      url,
-      data,
+      method: method,
+      url: url,
+      data: data,
     };
     props.handleApiCall(formData);
   }
@@ -24,7 +24,7 @@ const Form = (props) => {
           <input data-testid="url-input" name='url' type='text' onChange={(e) => setUrl(e.target.value)}/>
           <button data-testid="button" type="submit">GO!</button>
         </label>
-        <label>json data (if necessary)
+        <label>
           <textarea rows="4" cols="50" onChange={(e) => setData(e.target.value)}/>
         </label>
         <label className="methods">
@@ -32,13 +32,12 @@ const Form = (props) => {
             data-testid="get-span"
             onClick={(e) => setMethod(e.target.id)}
             style={{ backgroundColor: method === 'get' ? 'blue' : 'green' }} id="get"
-          >
-            GET
+          >GET
           </span>
           <span
             data-testid="post-span"
             onClick={(e) => setMethod(e.target.id)}
-            style={{ backgroundColor: method === 'post' ? 'blue' : '#green' }} id="post"
+            style={{ backgroundColor: method === 'post' ? 'blue' : 'green' }} id="post"
           >POST</span>
           <span
             onClick={(e) => setMethod(e.target.id)}
