@@ -1,4 +1,4 @@
-import { useReducer ,useEffect, useState } from 'react';
+import { useReducer, useEffect } from 'react';
 import axios from 'axios';
 
 import './App.scss';
@@ -11,49 +11,97 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Form from './Components/Form';
 import Results from './Components/Results';
+import History from './Components/History';
 
-export const requestReducer
+export const initialState = {
+  data: null,
+  requestParams: {},
+  loading: false,
+  history: []
+}
 
-const App = () => {
+export const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'START_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        requestParams: action.payload
+      };
+    case 'FINISH_REQUEST':
+      return {
+        ...state,
+        loading: false,
+        data: action.payload,
+        history: [
+          ...state.history,
+          {
+            requestParams: { ...state.requestParams },
+            data: action.payload
+          }
+        ],
+      }
+      case 'CHANGE_HISTORY':
+        return {
+          ...state,
+          ...state.history[action.payload], //
+        }
+    default:
+      return state;
+  }
+};
 
-  const [data, setData] = useState(null);
-  const [requestParams, setRequestParams] = useState({});
-  const [loading, setLoading] = useState(false);
+function App() {
+
+  // const [data, setData] = useState(null);
+  // const [requestParams, setRequestParams] = useState({});
+  // const [loading, setLoading] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   const callApi = (requestParams) => {
-    setLoading(true);
-
-    setTimeout(() => {
-      setRequestParams(requestParams);
-      setLoading(false);
-    }, 1000);
+    let action = {
+      type: 'START_REQUEST',
+      payload: requestParams
+    }
+    dispatch(action)
   }
 
-  useEffect(() => {
-    console.log('An event occurred');
-  });
-
+  const changeHistory = (idx) => {
+    let action = {
+    type: 'CHANGE_HISTORY',
+    payload: idx,
+  }
+    dispatch(action)
+  }
   useEffect(() => {
 
     const getData = async () => {
-
-      let response = await axios(requestParams);
-      setData(response.data.results);
+      if (state.requestParams.method && state.requestParams.url) {
+        let response = await axios(state.requestParams);
+        const data = response.data;
+        let action = {
+          type: 'FINISH_REQUEST',
+          payload: data,
+        }
+        dispatch(action);
+      }
     }
     getData();
-  }, [requestParams]);
+  }, [state.requestParams]);
+
 
   return (
     <>
       <Header />
-      <div>Request Method: {requestParams.method}</div>
-      <div>URL: {requestParams.url}</div>
+      <div>Request Method: {state.requestParams.method}</div>
+      <div>URL: {state.requestParams.url}</div>
       <Form handleApiCall={callApi} />
-      <Results data={data} loading={loading} />
+      <History history={state.history} changeHistory = {changeHistory}/>
+      <Results data={state.data} loading={state.loading} />
       <Footer />
     </>
-  )
-};
+  );
+}
 
 
 export default App;
